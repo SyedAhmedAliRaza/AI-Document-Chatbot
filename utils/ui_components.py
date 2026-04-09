@@ -93,17 +93,17 @@ def render_chat_interface():
     """, unsafe_allow_html=True)
 
     with st.sidebar:
-       
+
         st.markdown("<h1 style='color: #FF6200;'>Settings</h1>", unsafe_allow_html=True)
         if st.button("Clear Chat History", key="clear_history"):
             st.session_state.chat_history = []
             st.session_state.vector_store = None
             st.markdown("<span style='color: #FF6200;'>Chat history cleared!</span>", unsafe_allow_html=True)
         st.markdown("<hr style='border-color: #FF6200;'>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #FF6200;'>AI Document Chatbot v2.0<br>Powered by Llama</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #FF6200;'>AI Document Chatbot<br>Powered by Llama</p>", unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<h1 class='stTitle' >📄 AI Document Chatbot</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='stTitle' >📄 RAG-Hive </h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #FF6200;'>Upload documents and ask questions with AI assistance.</p>", unsafe_allow_html=True)
 
     uploaded_files = st.file_uploader(
