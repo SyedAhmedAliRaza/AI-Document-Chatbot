@@ -1,26 +1,26 @@
 %%writefile utils/rag_pipeline.py
 from langchain_huggingface import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from huggingface_hub import login
 import torch
 import os
 
 os.environ["HF_HOME"] = "/content/cache"
 try:
-    login(token=os.environ["HUGGINGFACEHUB_API_TOKEN"])
+    login(token=os.environ["HF_TOKEN"])
 except KeyError:
-    raise ValueError("HUGGINGFACEHUB_API_TOKEN not set in environment or Colab Secrets")
+    raise ValueError("HF_TOKEN not set in environment or Colab Secrets")
 
 def initialize_model():
     try:
         model_name = "meta-llama/Llama-3.2-1B-Instruct"
-        tokenizer = AutoTokenizer.from_pretrained(model_name, token=os.environ["HUGGINGFACEHUB_API_TOKEN"])
+        tokenizer = AutoTokenizer.from_pretrained(model_name, token=os.environ["HF_TOKEN"])
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             torch_dtype=torch.float16,  # Use FP16 without quantization
             device_map="auto",
-            token=os.environ["HUGGINGFACEHUB_API_TOKEN"],
+            token=os.environ["HF_TOKEN"],
             cache_dir="/content/cache"
         )
         text_pipeline = pipeline(
@@ -43,10 +43,10 @@ def query_rag(vector_store, llm, question):
         context = "\n".join([doc.page_content for doc in docs])
         prompt_template = PromptTemplate(
             input_variables=["context", "question"],
-            template="Context: {context}\n\nQuestion: {question}\nAnswer:"
+            template="Context: \t{context}\n\nQuestion: {question}\n\nAnswer:"
         )
         prompt = prompt_template.format(context=context, question=question)
         response = llm.invoke(prompt)
-        return response
+        return response.split("Answer:")[-1].strip()
     except Exception as e:
         return f"Error generating response: {e}"
