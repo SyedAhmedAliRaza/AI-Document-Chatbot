@@ -6,7 +6,9 @@ from utils.ui_components import render_chat_interface, display_message
 
 def main():
     st.set_page_config(page_title="AI Document Chatbot", page_icon="📄", layout="wide")
+
     uploaded_files, user_input = render_chat_interface()
+
     if "llm" not in st.session_state:
         with st.spinner("Initializing AI model..."):
             try:
@@ -14,14 +16,19 @@ def main():
             except Exception as e:
                 st.error(f"Model initialization failed: {e}")
                 return
-    if uploaded_files:
+
+    if "vector_store" not in st.session_state:
+        st.session_state.vector_store = None
+
+    if "processed_files" not in st.session_state:
+        st.session_state.processed_files = set()
+
+    if uploaded_files and st.session_state.vector_store is None:
         with st.spinner("Processing documents..."):
-            try:
-                st.session_state.vector_store = process_documents(uploaded_files)
-                display_message("assistant", "Documents processed successfully!")
-            except Exception as e:
-                st.error(f"Document processing failed: {e}")
-                return
+            st.session_state.vector_store = process_documents(uploaded_files)
+            st.session_state.processed_files = {file.name for file in uploaded_files}
+            display_message("assistant", "Documents processed successfully!")
+
     if user_input and st.session_state.vector_store is not None:
         display_message("user", user_input)
         with st.spinner("Generating response..."):
