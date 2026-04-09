@@ -1,35 +1,46 @@
-# 📄 AI Document Chatbot
+# 🐝📄 RAG-Hive — AI Document Chatbot
 
-AI Document Chatbot is a Streamlit-based web application that allows users to upload documents (PDF, DOCX, TXT) and interact with them using natural language queries. The app leverages a Retrieval-Augmented Generation (RAG) pipeline powered by the Llama-3.2-1B-Instruct model to provide accurate answers from the uploaded files.
+**RAG-Hive** is a Streamlit-based AI application that allows users to upload documents (PDF, DOCX, TXT) and interact with them using natural language queries.
+
+It uses a **Retrieval-Augmented Generation (RAG)** pipeline powered by **Llama-3.2-1B-Instruct** to retrieve relevant context from documents and generate accurate, context-aware answers.
 
 ---
 
 ## 🚀 Features
 
-- Upload multiple documents and ask about them
-- Extracts text from documents using advanced NLP techniques
-- Contextual question-answering using RAG pipeline
-- Clean and responsive user interface with chat history
-- Powered by open-source Hugging Face models
-  
+- 📂 Upload multiple documents (PDF, DOCX, TXT)  
+- 🔍 Ask questions in natural language  
+- 🧠 Context-aware answers using RAG pipeline  
+- ⚡ Fast semantic search with FAISS  
+- 💬 Interactive chat interface with history  
+- 🎨 Clean and modern UI built with Streamlit  
+- 🔄 Efficient processing (documents processed once per session)  
+
+---
+
+## 🧠 How It Works
+
+1. 📄 Documents are uploaded and text is extracted  
+2. ✂️ Text is split into smaller chunks  
+3. 🔢 Embeddings are created using Sentence Transformers  
+4. 📦 FAISS vector store is built  
+5. 🔎 Relevant chunks are retrieved based on user query  
+6. 🤖 Llama model generates answer using retrieved context  
+
 ---
 
 ## 🛠️ Tech Stack  
 
-- [Python](https://www.python.org/)  
-- [Streamlit](https://streamlit.io/) 
-- [LangChain](https://www.langchain.com/) 
-- [Transformers](https://huggingface.co/docs/transformers/) 
-- [PyTorch](https://pytorch.org/) 
-- [Hugging Face Hub](https://huggingface.co/) 
-- [Sentence Transformers](https://www.sbert.net/) 
-- [FAISS](https://faiss.ai/) 
-- [BitsAndBytes](https://github.com/TimDettmers/bitsandbytes) 
-- [PDFPlumber](https://github.com/jsvine/pdfplumber) 
-- [python-docx](https://python-docx.readthedocs.io/) 
-- [Streamlit Chat](https://github.com/AI-Yash/st-chat)
-- [pyngrok](https://pyngrok.readthedocs.io/)  
-- **LLM:** Llama-3.2-1B-Instruct
+- **Language:** Python  
+- **Frontend/UI:** Streamlit  
+- **LLM:** Llama-3.2-1B-Instruct (Hugging Face)  
+- **Framework:** LangChain  
+- **Embeddings:** Sentence Transformers  
+- **Vector DB:** FAISS  
+- **Deep Learning:** PyTorch, Transformers  
+- **Document Processing:** PDFPlumber, python-docx  
+- **Deployment:** pyngrok  
+
   
 ---
 
